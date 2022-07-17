@@ -2,7 +2,7 @@ from django.db import models
 import random
 
 # Create your models here.
-class Urls(models.Model):
+class Url(models.Model):
     short_id = models.SlugField(max_length=6,primary_key=True)
     httpurl = models.URLField(null = True)
     pub_date = models.DateTimeField(auto_now=True)
@@ -85,7 +85,7 @@ class Urls(models.Model):
         requested_url = cls.objects.get(httpurl = httpurl)
         return requested_url
 
-class Statistics(models.Model):
+class Statistic(models.Model):
     '''
     Class that defines the structure of the statistics objects
     '''

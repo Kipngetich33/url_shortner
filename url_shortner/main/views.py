@@ -1,6 +1,6 @@
 # Create your views here.
 from django.shortcuts import render,redirect
-from . models import Urls, Statistics
+from . models import Url, Statistic
 from . forms import UrlForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.validators import URLValidator
@@ -12,30 +12,30 @@ def h(request):
         form = UrlForm(request.POST)
         if form.is_valid():
             search_name = form.cleaned_data['Enter_url']
-            is_exist = Urls.url_exist(search_name)
+            is_exist = Url.url_exist(search_name)
             if is_exist == False:
-                shortcode = Urls.code_generator()
-                new_url = Urls (short_id = shortcode,httpurl = search_name )
+                shortcode = Url.code_generator()
+                new_url = Url (short_id = shortcode,httpurl = search_name )
                 new_url.save()
                 httpurl = search_name 
-                requested_object = Urls.objects.get(httpurl = search_name)
+                requested_object = Url.objects.get(httpurl = search_name)
                 message = 'short code created successfully'
-                total_clicks = Statistics.get_total_clicks()
+                total_clicks = Statistic.get_total_clicks()
             else:
-                shortcode = Urls.objects.get(httpurl = search_name).short_id
-                httpurl = Urls.objects.get(httpurl = search_name).httpurl
-                requested_object = Urls.objects.get(httpurl = search_name)
+                shortcode = Url.objects.get(httpurl = search_name).short_id
+                httpurl = Url.objects.get(httpurl = search_name).httpurl
+                requested_object = Url.objects.get(httpurl = search_name)
                 message = 'A short url for the entered url already exists'
-                total_clicks = Statistics.get_total_clicks()
+                total_clicks = Statistic.get_total_clicks()
             return render(request,'makeshort.html',{"message":message,"shortcode":shortcode, "httpurl":httpurl,"requested_object":requested_object,"total_clicks":total_clicks})
     else:
         form = UrlForm()
     return render(request,'home.html',{"form":form})
 
 def r(request):    
-    shortcode = Urls.objects.get(httpurl = search_name).short_id
-    urls = Urls.objects.all()
-    total_clicks = Statistics.get_total_clicks()
+    shortcode = Url.objects.get(httpurl = search_name).short_id
+    urls = Url.objects.all()
+    total_clicks = Statistic.get_total_clicks()
 
     for url in urls:
         index = calculate_popularity(total_clicks,url.count)
@@ -45,17 +45,17 @@ def r(request):
 
 def s(request, shortcode):
     try:
-        is_shortcode = Urls.shortcode_exist(shortcode)
+        is_shortcode = Url.shortcode_exist(shortcode)
         if is_shortcode == True:
-            requested_url = Urls.get_url_by_shorcode(shortcode)
+            requested_url = Url.get_url_by_shorcode(shortcode)
             requested_url.count +=1
             requested_url.save()
-            increase_total = Statistics.objects.get(name = 'statistics')
+            increase_total = Statistic.objects.get(name = 'statistics')
             increase_total.total_clicks += 1
             increase_total.save()
 
-            total_clicks1 = Statistics.get_total_clicks()
-            urls = Urls.objects.all()
+            total_clicks1 = Statistic.get_total_clicks()
+            urls = Url.objects.all()
             for url in urls:
                 index = calculate_popularity(total_clicks1,url.count)
                 url.index = index
@@ -71,8 +71,8 @@ def l(request):
     return render(request, 'last.html',{"message":message})
 
 def a(request): 
-    urls = Urls.objects.all()
-    total_clicks = Statistics.get_total_clicks()
+    urls = Url.objects.all()
+    total_clicks = Statistic.get_total_clicks()
 
     for url in urls:
         index = calculate_popularity(total_clicks,url.count)

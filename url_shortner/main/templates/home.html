@@ -1,0 +1,42 @@
+{%extends 'base.html'%}
+{% load bootstrap5 %}
+{% load staticfiles%}
+
+
+{% block styles %}
+    {% bootstrap_css %}
+    <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Libre+Baskerville|Lobster" rel="stylesheet">
+{% endblock %}
+{% block content %}
+{{block.super}}
+<style>
+    .body{
+        background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdavOgijek2257styjqDW6AoApcxMaZE_CLk5rng_mRZ55nan_qQ);
+        background-repeat:no-repeat;
+        background-size:cover;
+    }
+</style>
+<div class="row body">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+            <div style="text-align:center; margin-top:20%; margin-bottom:40px;">
+                    <p style="margin:10px; font-family: 'Libre Baskerville', serif; font-weight:bolder; font-size:27px; color:white;" >Make your urls shorter and monitor the number of clicks it gets ,it simpler than you think. Enter your url below !  </p>
+            </div>
+           
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+<div class="row" style= "background-color:#d9d9d9; height:100vh;" >
+    <div class="col-md-3"></div>
+    <div class="col-md-6" style="margin:10px;">
+        <form method="post" enctype="multipart/form-data" style="margin-top:3%; width:100%;">
+            {% csrf_token %} {% bootstrap_form form%}
+            <input type="submit" class="btn btn-primary btn-sm" value="Lets Go!" style="width:25%; margin-left: 35%; font-family: 'Lobster', cursive; font-size:20px;"  >
+            <input type="hidden" name="next" value="{{next}}">
+        </form>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+{% endblock %} 
