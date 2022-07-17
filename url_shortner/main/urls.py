@@ -7,4 +7,12 @@ from django.conf.urls.static import static
 urlpatterns = [
     # url(r'^$',views.h,name = 'home'),
     path('', views.h, name='home'),
+    path(r'^s/(?P<shortcode>[-_\w.]+)',views.s, name = 'statistics'),
+    path(r'^r/',views.r, name = 'makeshort'),
+    path(r'^l/',views.l, name = 'last'),
+    path(r'^a',views.a, name = 'all'), 
+    path(r'^w',views.w, name = 'wrong'), 
+    path(r'^t',views.t, name = 'test'),
+    path(r'^p',views.p, name = 'test2'), 
+    path(r'^i',views.i, name = 'single'), 
 ]
