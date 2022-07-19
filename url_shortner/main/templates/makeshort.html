@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block styles %}
+    {% bootstrap_css %}
+    <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Libre+Baskerville|Lobster" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<style>
+        body{
+            background: linear-gradient(to right, silver , white)    }
+    </style>
+<body>
+<div class="row">
+    <div class="col-md-3">
+            <h4 style="text-align:center;color:#379683;font-family: 'Libre Baskerville'; margin-top:20%;">Click Through Rate :</h4>
+            <h5 style="text-align:center; font-weight:bolder;font-size:30px;">{{requested_object.index}}&nbsp;% </h5><br>
+    </div>
+    <div class="col-md-6" style="margin: 20px;">
+        <h3 style="text-align:center;font-weight:bolder;color:#05386B;">Details</h3>
+        <hr>
+        <h4 style="text-align:center;font-weight:bolder;color:#379683;font-family: 'Libre Baskerville';">Your New Shortened Url is: </h4>
+            <h5 style="text-align:center; font-weight:bolder; "><a href="{% url 'statistics' shortcode %}">http://r1d/{{shortcode}}</a>
+            </h5><br>
+        <h4 style="text-align:center; font-weight:bolder;color:#379683;font-family: 'Libre Baskerville';">Clicks on This Url:</h4>
+            <h5 style="text-align:center; font-weight:bolder;">{{requested_object.count}}&nbsp;Times</h5><br>
+        <h4 style="text-align:center; font-weight:bolder;color:#379683;font-family: 'Libre Baskerville';">Clicks on Other Urls:</h4>
+            <h5 style="text-align:center; font-weight:bolder;">{{total_clicks}}&nbsp;</h5><br>
+        <h4 style="text-align:center;font-weight:bolder;color:#379683;font-family: 'Libre Baskerville';">Message:</h4>
+            <h5 style="text-align:center;">{{message}}</h5> <br>
+        <h4 style="text-align:center;font-weight:bolder;color:#379683;font-family: 'Libre Baskerville';">Initial url :</h4>
+            <h5 style="text-align:center; font-weight:bolder;">{{httpurl}}</h5>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+<div class="row" style="background-color:#d9d9d9"></div>
+</body>
+{% endblock %}
