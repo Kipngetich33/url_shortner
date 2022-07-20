@@ -21,7 +21,6 @@ class Url(models.Model):
         new_statistic = Statistic(name = self.short_id,total_clicks = 0 )
         new_statistic.save()
         
-        # self.save()
 
     @classmethod
     def count_unique(cls,httpurl):
@@ -89,6 +88,34 @@ class Url(models.Model):
         '''
         requested_url = cls.objects.get(httpurl = httpurl)
         return requested_url
+
+    @classmethod
+    def get_class_information(cls,shortcode):
+        '''
+        Function that uses the shortcode of a model and 
+        uses it to get all the columns in a model
+        input:
+            shortcode - str
+        output:
+            dictionary with all the fields  
+        '''
+        print("*"*80)
+        print("dict values")
+        # declare the return dictionary
+        return_dict = {'count':None, 'httpurl':None, 'index':None, 'pub_date':None, 'short_id':None}
+        # now get the fields and values
+        fields_n_values = cls.objects.filter(short_id = shortcode).values_list('count', 'httpurl', 'index', 'pub_date', 'short_id')
+        # add correct values to the dictionary
+        # return_dict['count'] = fields_n_values.get('count')
+        # return_dict['httpurl'] = fields_n_values.get('httpurl')
+        # return_dict['index'] = fields_n_values.get('index')
+        # return_dict['pub_date'] = fields_n_values.get('pub_date')
+        # return_dict['short_id'] = fields_n_values.get('short_id')
+
+        print("done")
+        # return data formatted as a dictionary
+        return return_dict
+
 
 class Statistic(models.Model):
     '''
