@@ -31,7 +31,8 @@
     <div class="col-md-3"></div>
     <div class="col-md-6" style="margin:10px;">
         <form method="post" enctype="multipart/form-data" style="margin-top:3%; width:100%;">
-            {% csrf_token %} {% bootstrap_form form%}
+            {% csrf_token %} 
+            {% bootstrap_form form%}
             <input type="submit" class="btn btn-primary btn-sm" value="Lets Go!" style="width:25%; margin-left: 35%; font-family: 'Lobster', cursive; font-size:20px;"  >
             <input type="hidden" name="next" value="{{next}}">
         </form>
