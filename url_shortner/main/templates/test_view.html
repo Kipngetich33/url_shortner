@@ -1,0 +1,26 @@
+{%extends 'base.html'%}
+{% load bootstrap5 %}
+{% load static%}
+
+<!-- pages stles section -->
+{% block styles %}
+    {% bootstrap_css %}
+    <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Libre+Baskerville|Lobster" rel="stylesheet">
+{% endblock %}
+
+<!-- page content section -->
+{% block content %}
+    {{block.super}}
+    <style>
+        .body{
+            background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdavOgijek2257styjqDW6AoApcxMaZE_CLk5rng_mRZ55nan_qQ);
+            background-repeat:no-repeat;
+            background-size:cover;
+        }
+    </style>
+    <div class="row body">
+        
+        <h1>Test Page  {{ shorted_url }}</h1>
+        
+    </div>
+{% endblock %} 
