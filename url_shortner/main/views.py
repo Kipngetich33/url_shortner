@@ -54,40 +54,31 @@ def url_detail_view(request,shortcode):
     input:
         shortcode - slug
     '''
-
-    print("*"*80)
-    print("tyest view")
-   
     # get the base url from the enviroment variables (using python-decouple)
     base_url = config("BASE_URL", default = "http://localhost") 
     
     # define the retrun dict
     return_dict = {
-        "shorted_url":"https://shorturl/7",
-        "url_clicks":5,
         "message":"Mesage here",
-        "long_url":"https://dhkfjkdsfjsdfk/sdfsdfsdf/dasdfdfds/fdsyifu",
         "click_through_rate":10,
-        "shortcode":shortcode,
-        "base_url": base_url
     }
 
-    # use a try except block to catch errors
-    try:
-        print(shortcode)
-        # get the passed shortcode
-        # is_shortcode = Url.shortcode_exist(shortcode)
-        # if is_shortcode == True:
-        #     url_object = Url(short_id = shortcode)
-        # else:
-        #     return redirect(l)
-        pass
-    # render this in case try fails
-    except:
+    # get url details from the model class using get_class_information
+    url_details = Url.get_class_information(shortcode)
+    # get statistics for url
+
+
+    # check if related url was found
+    if url_details.get("state"):
+        return_dict['url_details'] = url_details
+    else:
+        # redirect to the error page
         return redirect(error_page)
 
     # return the view template
-    return render(request,'makeshort.html',return_dict)
+    return render(request,'url_details.html',return_dict)
+
+def 
 
 def r(request):    
     shortcode = Url.objects.get(httpurl = search_name).short_id
