@@ -61,6 +61,7 @@ def url_detail_view(request,shortcode):
     return_dict = {
         "message":"Mesage here",
         "click_through_rate":10,
+        "base_url":base_url
     }
 
     # get url details from the model class using get_class_information
@@ -78,7 +79,19 @@ def url_detail_view(request,shortcode):
     # return the view template
     return render(request,'url_details.html',return_dict)
 
-def 
+def redirect_short_to_long_url(request,shortcode):
+    '''
+    Function that redirects the given short url to the 
+    initial long url
+    '''
+    # get a url associated with shortcode
+    try:
+        long_url = Url.get_url_by_shorcode(shortcode)
+        # redirect user to correct url
+        return redirect(str(long_url))
+    except:
+        # no match found hence redirect to error page
+        return redirect(error_page)
 
 def r(request):    
     shortcode = Url.objects.get(httpurl = search_name).short_id

@@ -9,7 +9,7 @@ urlpatterns = [
     path('details/<slug:shortcode>/',views.url_detail_view),
     path('details/',views.error_page),
     path('error/',views.error_page),
-    path('<slug:shortcode>',views.error_page),
+    path('<slug:shortcode>/',views.redirect_short_to_long_url),
 
 
     # path(r'^s/(?P<shortcode>[-_\w.]+)',views.s, name = 'statistics'),
