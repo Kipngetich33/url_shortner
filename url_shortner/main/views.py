@@ -15,72 +15,46 @@ def home(request):
     It accepts both GET and POST requests from
     the Template
     '''
-    print("*"*80)
-    print("Home")
     # check if the user is sending a post request
     if request.method == 'POST':
         form = UrlForm(request.POST)
         # check if the form is valid
         if form.is_valid():
-            search_name = form.cleaned_data['Enter_url']
-            is_exist = Url.url_exist(search_name)
+            # initialize shortcode as empty string
+            shortcode = ""
+            # get the entered url
+            entered_long_url = form.cleaned_data['Enter_url']
+            is_exist = Url.url_exist(entered_long_url)
             # if the url doesn't already exist in the database
             if not is_exist:
-                print("doesn't exist")
+                # generate a shortcode to represent the url in the database
                 shortcode = Url.code_generator()
-                new_url = Url(short_id = shortcode,httpurl = search_name )
+                new_url = Url(short_id = shortcode,httpurl = entered_long_url )
                 # save the new url to the Url table in the database
                 new_url.save()
-
-                # httpurl = search_name 
-                # requested_object = Url.objects.get(httpurl = search_name)
-                # message = 'short code created successfully'
-
-                # # get the total number of clicks for this url from the database
-                # total_clicks = Statistic.get_total_clicks()
-                # simulate the total number of clicks on other urls as 5 
-                # :ToDo To be changed 
-                total_clicks = 5
-
             else:
-                # return dict
-                return_dict = {"message":"","shortcode":"","httpurl":"","requested_object":"",
-                    "total_clicks":0
-                }
-                # try and except to ensure a fail safe situation
-                try:
-                    #filter url record with httpurl
-                    found_url = Url.objects.filter(httpurl = search_name).values()[0]
-                    # update the return dict values approriately
-                    return_dict["shortcode"] = found_url.get("short_id")
-                    return_dict["httpurl"] = found_url.get("httpurl")
-                    return_dict["requested_object"] = Url.objects.get(httpurl = search_name)
-                    return_dict["message"] = 'A short url for the entered url already exists'
-                    # get the total number of clicks for this url from the database
-                    # total_clicks = Statistic.get_total_clicks()
-                    # simulate the total number of clicks on other urls as 5 
-                    # :ToDo To be changed 
-                    return_dict["total_clicks"] = 5
-                except:
-                    return_dict["message"] = 'An error occured while retriving URL'
-                    # get the total number of clicks for this url from the database
-                    # total_clicks = Statistic.get_total_clicks()
-                    # simulate the total number of clicks on other urls as 5 
-                    # :ToDo To be changed 
-                    return_dict["total_clicks"] = 5
-
+                #filter url record with httpurl to get the related shortcode
+                shortcode = Url.objects.filter(httpurl = entered_long_url).values()[0].get("short_id")                
             #return the short url page with statistics
-            return render(request,'makeshort.html',return_dict)
+            return redirect(url_detail_view,shortcode)
 
         else:
-            print("Form is invalid")
+            # an error occured redirect to error page
+            return redirect(error_page)
     else:
         # user is sending a normal request
         form = UrlForm()
     # return the template page
     return render(request,'home.html',{"form":form})
 
-def test_view(request,shortcode):
+def url_detail_view(request,shortcode):
+    '''
+    This the urls details view, the function takes a url shortcode
+    and retrives all infomation relating to it from the database
+    input:
+        shortcode - slug
+    '''
+
     print("*"*80)
     print("tyest view")
    

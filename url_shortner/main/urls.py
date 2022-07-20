@@ -6,8 +6,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('details/<slug:shortcode>/',views.test_view),
+    path('details/<slug:shortcode>/',views.url_detail_view),
     path('details/',views.error_page),
+    path('error/',views.error_page),
 
     # path(r'^s/(?P<shortcode>[-_\w.]+)',views.s, name = 'statistics'),
     # path(r'^l/',views.l, name = 'last'),
