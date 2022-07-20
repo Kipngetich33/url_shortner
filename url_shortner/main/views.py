@@ -6,6 +6,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from . statistics import calculate_popularity
+from django.conf import settings
+from decouple import config
 
 def home(request):
     '''
@@ -29,7 +31,7 @@ def home(request):
                 new_url = Url(short_id = shortcode,httpurl = search_name )
                 # save the new url to the Url table in the database
                 new_url.save()
-                
+
                 # httpurl = search_name 
                 # requested_object = Url.objects.get(httpurl = search_name)
                 # message = 'short code created successfully'
@@ -77,6 +79,41 @@ def home(request):
         form = UrlForm()
     # return the template page
     return render(request,'home.html',{"form":form})
+
+def test_view(request,shortcode):
+    print("*"*80)
+    print("tyest view")
+   
+    # get the base url from the enviroment variables (using python-decouple)
+    base_url = config("BASE_URL", default = "http://localhost") 
+    
+    # define the retrun dict
+    return_dict = {
+        "shorted_url":"https://shorturl/7",
+        "url_clicks":5,
+        "message":"Mesage here",
+        "long_url":"https://dhkfjkdsfjsdfk/sdfsdfsdf/dasdfdfds/fdsyifu",
+        "click_through_rate":10,
+        "shortcode":shortcode,
+        "base_url": base_url
+    }
+
+    # use a try except block to catch errors
+    try:
+        print(shortcode)
+        # get the passed shortcode
+        # is_shortcode = Url.shortcode_exist(shortcode)
+        # if is_shortcode == True:
+        #     url_object = Url(short_id = shortcode)
+        # else:
+        #     return redirect(l)
+        pass
+    # render this in case try fails
+    except:
+        return redirect(error_page)
+
+    # return the view template
+    return render(request,'makeshort.html',return_dict)
 
 def r(request):    
     shortcode = Url.objects.get(httpurl = search_name).short_id
@@ -126,7 +163,7 @@ def a(request):
         url.save()
     return render(request,'all.html',{"urls":urls,"total_clicks":total_clicks,"index":index})
 
-def w(request):
+def error_page(request):
     return render(request,'wrong.html')
 
 def t(request):
