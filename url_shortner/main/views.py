@@ -76,6 +76,12 @@ def url_detail_view(request,shortcode):
         # redirect to the error page
         return redirect(error_page)
 
+    # add url stats here
+    return_dict['url_stats'] = Statistic.get_url_stats(shortcode)
+
+    print("*"*80)
+    print(return_dict)
+
     # return the view template
     return render(request,'url_details.html',return_dict)
 

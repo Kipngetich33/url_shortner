@@ -99,8 +99,6 @@ class Url(models.Model):
         output:
             dictionary with all the fields  
         '''
-        print("*"*80)
-        print("dict values")
         # declare the return dictionary
         return_dict = {'count':None, 'httpurl':None, 'index':None,
             'pub_date':None, 'short_id':None,"state":False
@@ -123,15 +121,49 @@ class Statistic(models.Model):
     '''
     Class that defines the structure of the statistics objects
     '''
-    name =  models.CharField(max_length = 30, default ='statistics')
+    short_id = models.SlugField(max_length=6, default = None)
     total_clicks = models.PositiveIntegerField(default=1)
 
     @classmethod
     def get_total_clicks(cls):
-        print("*"*80)
-        print("getting ttoal clicks")
-        total = cls.objects.get(name = 'statistics')
-        return total.total_clicks
+        '''
+        Method that get the total number of click throughs in the
+        database
+        '''
+        return cls.objects.count()
+
+    @classmethod
+    def get_clicks_per_url(cls,shortcode):
+        '''
+        Method that get the total number of click throughs for a specific
+        url
+        input:
+            shortcode - slug
+        output:
+            count - int
+        '''        
+        return cls.objects.filter(short_id = shortcode).count()
+
+    @classmethod
+    def get_url_stats(cls,shortcode):
+        '''
+        Function that gets all stats related to a given url shortcode
+        input:
+            shortcode
+        output:
+            stats_dict - dictionary with stats
+        '''
+        # initialize the stats dictionary as empty
+        stats_dict = {}
+        # add total clicks and total clicks per url count
+        stats_dict['total_clicks'] = cls.get_total_clicks()
+        stats_dict['clicks_per_url'] = cls.get_clicks_per_url(shortcode)
+        try:
+            stats_dict['share_percentage'] = stats_dict['clicks_per_url'] / stats_dict['total_clicks']
+        except:
+            stats_dict['share_percentage'] = 0
+        # return the stats dictionary
+        return stats_dict
 
     def calculate_popularity(url_clicks):
         '''
