@@ -16,7 +16,12 @@ class Url(models.Model):
         '''
         Method that saves Urls objects
         '''
-        self.save()
+        print("saving url")
+        # save a corresponding Statistic record
+        new_statistic = Statistic(name = self.short_id,total_clicks = 0 )
+        new_statistic.save()
+        
+        # self.save()
 
     @classmethod
     def count_unique(cls,httpurl):
@@ -94,6 +99,8 @@ class Statistic(models.Model):
 
     @classmethod
     def get_total_clicks(cls):
+        print("*"*80)
+        print("getting ttoal clicks")
         total = cls.objects.get(name = 'statistics')
         return total.total_clicks
 
