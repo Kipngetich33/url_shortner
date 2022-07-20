@@ -53,7 +53,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost','http://kipngetich.xyz']
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost','https://localhost',
+    'http://kipngetich.xyz','https://kipngetich.xyz'
+]
 
 ROOT_URLCONF = 'url_shortner.urls'
 

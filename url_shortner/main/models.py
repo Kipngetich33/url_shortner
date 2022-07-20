@@ -102,20 +102,22 @@ class Url(models.Model):
         print("*"*80)
         print("dict values")
         # declare the return dictionary
-        return_dict = {'count':None, 'httpurl':None, 'index':None, 'pub_date':None, 'short_id':None}
+        return_dict = {'count':None, 'httpurl':None, 'index':None,
+            'pub_date':None, 'short_id':None,"state":False
+        }
         # now get the fields and values
-        fields_n_values = cls.objects.filter(short_id = shortcode).values_list('count', 'httpurl', 'index', 'pub_date', 'short_id')
-        # add correct values to the dictionary
-        # return_dict['count'] = fields_n_values.get('count')
-        # return_dict['httpurl'] = fields_n_values.get('httpurl')
-        # return_dict['index'] = fields_n_values.get('index')
-        # return_dict['pub_date'] = fields_n_values.get('pub_date')
-        # return_dict['short_id'] = fields_n_values.get('short_id')
+        fields_n_values = cls.objects.filter(short_id = shortcode).values_list('count', 'httpurl', 'index', 'pub_date', 'short_id')[0]
+        if len(fields_n_values):
+            # add correct values to the dictionary
+            return_dict['url_clicks'] = fields_n_values[0]
+            return_dict['long_url'] = fields_n_values[1]
+            return_dict['index'] = fields_n_values[2]
+            return_dict['pub_date'] = fields_n_values[3]
+            return_dict['shortcode'] = fields_n_values[4]
+            return_dict['state'] = True
 
-        print("done")
         # return data formatted as a dictionary
         return return_dict
-
 
 class Statistic(models.Model):
     '''
