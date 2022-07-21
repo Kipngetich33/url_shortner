@@ -13,6 +13,7 @@ lazy-object-proxy==1.7.1
 mccabe==0.7.0
 platformdirs==2.5.2
 pylint==2.14.4
+python-decouple==3.6
 soupsieve==2.3.2.post1
 sqlparse==0.4.2
 static3==0.7.0
