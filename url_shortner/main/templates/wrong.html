@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-The submitted url for this shortcode is invalid please or mispelled.<br>
-Please check the url and try again
-Go back to <a href="{% url 'home' %}">homepage</a>
+    <div class="row body" style="background-color: #A4A8A8;">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div style="text-align:center; margin-top:20%; margin-bottom:40px;">
+                <p style="margin:10px; font-family: 'Libre Baskerville', serif; font-weight:bolder; font-size:27px; color:white;" >An Error Occured ! </p>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+
+    </div>
+    <div class="row" style= "background-color:#d9d9d9; height:50vh;" >
+        <div class="col-md-3"></div>
+        <div class="col-md-6" style="margin:10px;">
+            <p>The submitted url for this shortcode is invalid please or mispelled.<br>
+                Please check the url and try again
+                Go back to <a href="{% url 'home' %}">homepage</a>
+            </p>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
 {% endblock %}

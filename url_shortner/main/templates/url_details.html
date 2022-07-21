@@ -16,32 +16,67 @@
 </style>
 
 <!-- page content section -->
-<body>
-    <div class="row">
-        <div class="col-md-6" style="margin: 20px;">
+<body >
+    <div class="row body" style="background-color: #A4A8A8;">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div style="text-align:center; margin-top:5%; margin-bottom:40px;">
+                <p style="margin:10px; font-family: 'Libre Baskerville', serif; font-weight:bolder; font-size:27px; color:white;" >Url Details & Stats</p>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    
+    </div>
+    <div class="row" style="padding-top:20px; height:70vh;">
+        <div class="col-md-1"></div>
+        <div class="col-md-5" >
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Shortcode</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
+                value = "{{ url_details.shortcode }}" >
+            </div>
 
-            <h4 style="text-align:center;font-weight:bolder;color:#379683;font-family: 'Libre Baskerville';">Shortened Url: </h4>
-            <h5 style="text-align:center; font-weight:bolder; ">
-                <!-- for now do not point this url to any page -->
-                <a href="{{ base_url }}/{{ url_details.shortcode }}">
-                    {{ base_url }}/{{ url_details.shortcode }}
-                </a>
-            </h5><br>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Shortened Url</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                value = "{{ base_url }}/{{ url_details.shortcode }}">
+            </div>
 
-            <h4 style="text-align:center; font-weight:bolder;color:#379683;font-family: 'Libre Baskerville';">No of Clicks:</h4>
-            <h5 style="text-align:center; font-weight:bolder;">{{ url_stats.clicks_per_url }}&nbsp;Times</h5><br>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Original Url</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                value = "{{ url_details.long_url }}">
+            </div>
 
-            <h4 style="text-align:center;font-weight:bolder;color:#379683;font-family: 'Libre Baskerville';">Long Url :</h4>
-            <h5 style="text-align:center; font-weight:bolder;">{{ url_details.long_url }}</h5>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">No of Clicks</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                value = "{{ url_stats.clicks_per_url }}">
+            </div>
 
-            <h4 style="text-align:center; font-weight:bolder;color:#379683;font-family: 'Libre Baskerville';">No. of clicks for all Urls :</h4>
-            <h5 style="text-align:center; font-weight:bolder;">{{ url_stats.total_clicks }}&nbsp;</h5><br>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">No. of clicks for all Urls</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                value = "{{ url_stats.total_clicks }}">
+            </div>
 
-            <h4 style="text-align:center; font-weight:bolder;color:#379683;font-family: 'Libre Baskerville';">Url Share Percentage :</h4>
-            <h5 style="text-align:center; font-weight:bolder;">{{ url_stats.share_percentage }}&nbsp;%</h5><br>
-
-            <h4 style="text-align:center;font-weight:bolder;color:#379683;font-family: 'Libre Baskerville';">Message :</h4>
-            <h5 style="text-align:center;"></h5><br>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Share Percentage</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                value = "{{ url_stats.share_percentage }}">
+            </div>
 
         </div>
 
