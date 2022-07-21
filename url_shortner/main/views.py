@@ -79,9 +79,6 @@ def url_detail_view(request,shortcode):
     # add url stats here
     return_dict['url_stats'] = Statistic.get_url_stats(shortcode)
 
-    print("*"*80)
-    print(return_dict)
-
     # return the view template
     return render(request,'url_details.html',return_dict)
 
@@ -93,6 +90,9 @@ def redirect_short_to_long_url(request,shortcode):
     # get a url associated with shortcode
     try:
         long_url = Url.get_url_by_shorcode(shortcode)
+        # save a corresponding Statistic record
+        new_statistic = Statistic(short_id = shortcode )
+        new_statistic.save()
         # redirect user to correct url
         return redirect(str(long_url))
     except:

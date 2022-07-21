@@ -12,16 +12,6 @@ class Url(models.Model):
     def __str__(self):
         return self.httpurl
 
-    def save_url(self):
-        '''
-        Method that saves Urls objects
-        '''
-        print("saving url")
-        # save a corresponding Statistic record
-        new_statistic = Statistic(name = self.short_id,total_clicks = 0 )
-        new_statistic.save()
-        
-
     @classmethod
     def count_unique(cls,httpurl):
         '''
@@ -122,7 +112,7 @@ class Statistic(models.Model):
     Class that defines the structure of the statistics objects
     '''
     short_id = models.SlugField(max_length=6, default = None)
-    total_clicks = models.PositiveIntegerField(default=1)
+    pub_date = models.DateTimeField(auto_now=True)
 
     @classmethod
     def get_total_clicks(cls):
@@ -159,9 +149,10 @@ class Statistic(models.Model):
         stats_dict['total_clicks'] = cls.get_total_clicks()
         stats_dict['clicks_per_url'] = cls.get_clicks_per_url(shortcode)
         try:
-            stats_dict['share_percentage'] = stats_dict['clicks_per_url'] / stats_dict['total_clicks']
+            stats_dict['share_percentage'] = stats_dict['clicks_per_url'] / stats_dict['total_clicks'] * 100
         except:
             stats_dict['share_percentage'] = 0
+
         # return the stats dictionary
         return stats_dict
 
